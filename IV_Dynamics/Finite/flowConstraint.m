@@ -10,7 +10,7 @@ function [d,deq] = flowConstraint(CK,T,K1,theta,alpha)
     k    =   [K1; cap];
 
     for t = 1:T
-        deq(t)  =  k(t+1) - theta * k(t)^alpha - c(t);
+        deq(t)  =  k(t+1) - theta * (k(t)- c(t))^alpha ;
     end
   
     d    =  [];
