@@ -16,9 +16,9 @@ hold on
 %*** (1) Plot 10 value function iterations
 %**********************************************************************
 TV = [zeros(1000,1) NaN(1000,66)];
-for iter = 1:10
+for iter = 1:50
   fprintf('We are on iteration %d\n', iter)
-	TV(:,iter+1)=Iterate_VF(TV(:,iter),100);
+	TV(:,iter+1)=iterateVF(TV(:,iter),100);
 end
 
 plot(K,TV)

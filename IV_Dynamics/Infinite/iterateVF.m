@@ -5,9 +5,9 @@ function [TV, opt]  =  iterateVF(V, maxK)
   % function.  The scalar maxK represents the maximum possible
   % amount of capital that can be consumed in one period.
 
-	%============================================================
+  %============================================================
   %=== (1) Basic parameters
-	%============================================================
+  %============================================================
   alpha   =  0.65;
   beta    =  0.9;
   theta   =  1.2;
