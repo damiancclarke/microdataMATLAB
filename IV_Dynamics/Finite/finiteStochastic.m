@@ -1,5 +1,4 @@
 clear; 
-%clc
 
 %**************************************************************************
 %*** (1) Setup parameters
@@ -15,7 +14,7 @@ alpha    =  0.98;
 
 K        =  0:grid:K1+max(epsilon);
 V        =  [NaN(length(K),T), zeros(length(K),1)];
-aux      =  NaN(length(K),length(K),T);
+aux      =   NaN(length(K),length(K),T);
 
 
 %**************************************************************************
@@ -23,12 +22,18 @@ aux      =  NaN(length(K),length(K),T);
 %**************************************************************************
 for t = T:-1:1
 	fprintf('Currently in period %d\n', t)
-	for inK = 1:length(K)
+
+	for inK = 1:length(0:grid:K1)
 		for outK = 1:inK
 			c               =  K(inK) - K(outK);
-			EnextK          =  K(inK) - c + epsilon*PI';
-			position        =  round(EnextK/grid + 1);
-			aux(inK,outK,t) =  log(c) + Beta*V(position,t+1);
+      nextKl          =  K(inK) - c + epsilon(2);
+      nextKh          =  K(inK) - c + epsilon(1);
+
+      if nextKl>=0 & nextKh>=0
+        EnextV          =  PI(2) * V((round(nextKl/grid)+1), t+1) + ...
+                           PI(1) * V((round(nextKh/grid)+1), t+1);
+        aux(inK,outK,t) =  log(c) + Beta*EnextV;
+      end
 		end
 	end
 	V(:,t)=max(aux(:,:,t),[],2);
