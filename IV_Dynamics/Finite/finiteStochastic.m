@@ -3,7 +3,7 @@ clear;
 %**************************************************************************
 %*** (1) Setup parameters
 %**************************************************************************
-epsilon  =  [2 -2];
+epsilon  =  [-2 2];
 PI       =  [0.5 0.5];
 Beta     =  0.9;
 K1       =  100;
@@ -25,15 +25,16 @@ for t = T:-1:1
 
 	for inK = 1:length(0:grid:K1)
 		for outK = 1:inK
-			c               =  K(inK) - K(outK);
-      nextKl          =  K(inK) - c + epsilon(2);
-      nextKh          =  K(inK) - c + epsilon(1);
-
-      if nextKl>=0 & nextKh>=0
-        EnextV          =  PI(2) * V((round(nextKl/grid)+1), t+1) + ...
-                           PI(1) * V((round(nextKh/grid)+1), t+1);
-        aux(inK,outK,t) =  log(c) + Beta*EnextV;
+			c                =  K(inK) - K(outK);
+      nextKl           =  K(inK) - c + epsilon(1);
+      nextKh           =  K(inK) - c + epsilon(2);
+      if nextKl<0
+  			nextKl=0;
       end
+
+      EnextV           =  PI(1) * V((round(nextKl/grid)+1), t+1) + ...
+                          PI(2) * V((round(nextKh/grid)+1), t+1);
+      aux(inK,outK,t)  =  log(c) + Beta*EnextV;
 		end
 	end
 	V(:,t)=max(aux(:,:,t),[],2);
