@@ -25,9 +25,11 @@ for t = T:-1:1
 
 	for inK = 1:length(0:grid:K1)
 		for outK = 1:inK
-			c                =  K(inK) - K(outK);
-      nextKl           =  K(inK) - c + epsilon(1);
-      nextKh           =  K(inK) - c + epsilon(2);
+      c                =  K(inK)-(K(outK)/theta)^(1/alpha);
+      nextKl           =  theta*(K(inK) - c)^alpha + epsilon(1);
+      nextKh           =  theta*(K(inK) - c)^alpha + epsilon(2);
+      %nextKl           =  K(outK) + epsilon(1);
+      %nextKh           =  K(outK) + epsilon(2);
       if nextKl<0
   			nextKl=0;
       end
