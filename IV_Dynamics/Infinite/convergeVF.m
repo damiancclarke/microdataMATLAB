@@ -14,7 +14,7 @@ Iter = 0;
 
 while conv>crit
 	Iter = Iter+1
-	[TV opt] = iterateVF(V,100);
+	[TV optK] = iterateVF(V,100);
 	conv = max(abs(TV-V))
 	plot(K,TV, 'color', cc(Iter,:))
 	V = TV;
@@ -22,5 +22,5 @@ end
 
 xlabel('Amount of Capital', 'FontSize', 12)
 ylabel('Value Function', 'FontSize', 12)
-title('Value Function Iteration', 'FontSize', 14)
+%title('Value Function Iteration', 'FontSize', 14)
 
